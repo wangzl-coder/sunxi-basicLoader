@@ -33,7 +33,7 @@
 
 #define   DDR3_USED
 
-const boot0_file_head_t  BT0_head __attribute__((__section__("bt0_head")))= {
+const boot0_file_head_t  BT0_head __attribute__((__section__(".bt0_head")))= {
 	                                  {
 	      /* jump_instruction */          ( 0xEA000000 | ( ( ( sizeof( boot0_file_head_t ) + sizeof( int ) - 1 ) / sizeof( int ) - 2 ) & 0x00FFFFFF ) ),
 							   		      BOOT0_MAGIC,
