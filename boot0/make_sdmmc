@@ -24,10 +24,17 @@ include make.cfg
 
 #从所有子目录中得到源代码的列表
 SRCCS=$(foreach dir,$(SRCDIRS),$(wildcard $(dir)/*.c))
-SRCSS=$(foreach dir,$(SRCDIRS),$(wildcard $(dir)/*.s))
+SRCSS=$(foreach dir,$(SRCDIRS),$(wildcard $(dir)/*.S))
 
 #得到源代码对应的目标文件的列表
-OBJS=$(SRCCS:.c=.o) $(SRCSS:.s=.o)
+OBJS=$(SRCCS:.c=.o) $(SRCSS:.S=.o)
+
+
+ifeq ($(CROSSTOOL), ARMRVDS)
+#===============================================================================
+#使用RVDS编译器
+#===============================================================================
+
 
 
 #生成输出目标文件
@@ -47,7 +54,33 @@ endif
 $(LOCALTARGET):$(OBJS)
 	$(LINK) $(LKFLAGS) -o $@ $(filter %.o ,$+) $(LIBS)
 
+else
+ifeq ($(CROSSTOOL), ARMGCC)
+#===============================================================================
+#使用GNU-GCC编译器
+#===============================================================================
 
+
+TARGET := boot0_sdcard_$(ARCH).bin
+
+$(TARGET):boot0_sdcard_$(ARCH)
+	$(OBJCOPY) $(OBJCOPY_FLAGS) boot0_sdcard_$(ARCH) $(TARGET)
+
+
+boot0_sdcard_$(ARCH):$(OBJS)
+	$(LD) $(LDFLAGS) -o $@ $(OBJS)
+	
+	
+%.o:%.c
+	$(CC) -c -o $@ $(CFLAGS) $<
+	
+%.o:%.S
+	$(CC) -c -o $@ $(CFLAGS) $<
+	
+endif
+
+
+endif
 # 删除生成的中间文件
 clean:
 	-rm $(OBJS) $(LOCALTARGET) $(TMPTARGET) boot0_sdcard_$(ARCH).bin
