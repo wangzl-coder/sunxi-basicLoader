@@ -29,6 +29,12 @@ SRCSS=$(foreach dir,$(SRCDIRS),$(wildcard $(dir)/*.s))
 #得到源代码对应的目标文件的列表
 OBJS=$(SRCCS:.c=.o) $(SRCSS:.s=.o)
 
+ifeq ($(CROSSTOOL), ARMRVDS)
+
+#===============================================================================
+#使用RVDS编译器
+#===============================================================================
+
 
 #生成输出目标文件
 nand:$(LOCALTARGET)
@@ -46,6 +52,33 @@ endif
 #生成本地目标文件
 $(LOCALTARGET):$(OBJS)
 	$(LINK) $(LKFLAGS) -o $@ $(filter %.o ,$+) $(LIBS)
+
+else
+
+ifeq ($(CROSSTOOL), ARMGCC)
+#===============================================================================
+#使用GNU-GCC编译器
+#===============================================================================
+
+
+TARGET := boot0_nand_$(ARCH).bin
+
+$(TARGET):boot0_nand_$(ARCH)
+	$(OBJCOPY) $(OBJCOPY_FLAGS) boot0_nand_$(ARCH) $(TARGET)
+
+
+boot0_nand_$(ARCH):$(OBJS)
+	$(LD) $(LDFLAGS) -o $@ $<
+	
+	
+%.o:%.c
+	$(CC) -c -o $@ $(CFLAGS) $<
+
+
+endif
+
+
+endif
 
 
 # 删除生成的中间文件

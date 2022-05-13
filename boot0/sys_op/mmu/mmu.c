@@ -30,7 +30,7 @@
 #ifndef  __mmu_c
 #define  __mmu_c
 
-#include "..\\sys_op_i.h"
+#include "../sys_op_i.h"
 
 extern void    mmu_set_smp( void);
 extern void    mmu_flush_TLB( void);
@@ -97,8 +97,18 @@ void mmu_system_init(__u32 dram_base, __u32 dram_size, __u32 mmu_base)
 	}
 	mmu_flush_TLB();
 	//set ttb
-	__asm{mcr p15, 0, mmu_base, c2, c0, 0}
-	__asm{mcr p15, 0, mmu_base, c2, c0, 1}
+	__asm__ __volatile__(
+	"mcr p15, 0, %0, c2, c0, 0"
+	:
+	:"r"(mmu_base)
+	:"memory"
+	);
+	__asm__ __volatile__(
+	"mcr p15, 0, %0, c2, c0, 1"
+	:
+	:"r"(mmu_base)
+	:"memory"
+	);
 	//clean i/d cache
 	flush_icache();
 	//flush_dcache();
@@ -114,10 +124,20 @@ void   mmu_enable( void )
 {
 	__u32 c1format = 0;
 
-	__asm{MRC p15,0,c1format,c1,c0,0}
+	__asm__ __volatile__(
+	"mrc p15,0,%0,c1,c0,0"
+	:"=r"(c1format)
+	:
+	:"memory"
+	);
 	c1format &= ~ 0x1007;
 	c1format |= 0x1001;				//´ò¿ªICACHE£¬MMU£¬DISABLE ALIGIN CHECK
-	__asm{MCR p15,0,c1format,c1,c0,0}
+	__asm__ __volatile__(
+	"mcr p15,0,%0,c1,c0,0"
+	:
+	:"r"(c1format)
+	:"memory"
+	);
 }
 
 
@@ -126,10 +146,20 @@ void   mmu_disable( void )
 {
 	__u32 c1format = 0;
 
-	__asm{MRC p15,0,c1format,c1,c0,0}
+	__asm__ __volatile__(
+	"mrc p15,0,%0,c1,c0,0"
+	:"=r"(c1format)
+	:
+	:"memory"
+	);
 	c1format &= ~ 0x1007;
 	c1format |= 0;
-	__asm{MCR p15,0,c1format,c1,c0,0}
+	__asm__ __volatile__(
+	"mcr p15,0,%0,c1,c0,0"
+	:
+	:"r"(c1format)
+	:"memory"
+	);
 }
 
 

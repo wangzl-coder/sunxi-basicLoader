@@ -204,6 +204,7 @@ static void print_version(void)
 */
 static void clear_ZI( void )
 {
+	/*
 	__u32 *p32;
 	__u32 size;
 
@@ -214,7 +215,7 @@ static void clear_ZI( void )
 	p32  = (__u32 *)&Image$$Boot0_RW_ZI$$ZI$$Base;
 
 	memset(p32, 0, size);
-
+*/
 }
 
 

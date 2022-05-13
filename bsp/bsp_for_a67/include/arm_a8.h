@@ -54,5 +54,5 @@
 #define   ARMV7_C1_Z_BIT         ( 1 << 11 )
 #define   ARMV7_C1_I_BIT         ( 1 << 12 )
 
-
+#define BOOT0_STACK_BOTTOM      ( 0x000050000 )
 #endif

@@ -854,7 +854,8 @@ int mmc_startup(struct mmc *mmc)
 	struct mmc_cmd cmd;
 	char ext_csd[512];
 	int timeout = 1000;
-
+	int i = 0;
+	
 	/* Put the Card in Identify Mode */
 	cmd.cmdidx = mmc_host_is_spi(mmc) ? MMC_CMD_SEND_CID :
 		MMC_CMD_ALL_SEND_CID; /* cmd not supported in spi */
@@ -1146,7 +1147,11 @@ int mmc_startup(struct mmc *mmc)
 
 	/* fill in device description */
 	mmc->blksz = mmc->read_bl_len;
-	mmc->lba = mmc->capacity/mmc->read_bl_len;
+	while((mmc->read_bl_len * i> mmc->capacity))
+	{
+		i++;
+	}
+	mmc->lba = i;
 
 	if(!IS_SD(mmc)){
 		switch(mmc->version)
@@ -1225,6 +1230,8 @@ int mmc_send_if_cond(struct mmc *mmc)
 
 	return 0;
 }
+
+
 
 int mmc_init(struct mmc *mmc)
 {
