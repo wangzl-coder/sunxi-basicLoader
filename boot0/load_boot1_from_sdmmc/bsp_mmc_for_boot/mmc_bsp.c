@@ -6,7 +6,7 @@
  * Author: Aaron <leafy.myeh@allwinnertech.com>
  * Date: 2012-2-3 14:18:18
  */
-#include <string.h>
+#include "extra_string.h"
 #include "mmc_def.h"
 #include "mmc.h"
 #include <boot0_i.h>

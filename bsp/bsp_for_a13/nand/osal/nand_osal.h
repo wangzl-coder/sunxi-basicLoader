@@ -1,7 +1,7 @@
 #ifndef __NAND_OSAL_H__
 #define __NAND_OSAL_H__
 
-#include <string.h>
+#include "extra_string.h"
 #include "types.h"
 #include "boot0_i.h"
 

@@ -28,7 +28,7 @@
 ************************************************************************************************************************
 */
 #include "lib_i.h"
-#include "string.h"
+#include "extra_string.h"
 
 
 //#pragma arm section  code="check_magic"

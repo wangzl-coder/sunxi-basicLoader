@@ -17,7 +17,7 @@
  * along with this program;
  *
  */
-#include <string.h>
+#include "extra_string.h"
 #include "types.h"
 #include "arch.h"
 #include "bsp.h"

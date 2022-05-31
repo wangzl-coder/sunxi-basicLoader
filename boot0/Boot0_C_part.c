@@ -31,7 +31,7 @@
 */
 #include "boot0_i.h"
 
-#include <string.h>
+#include "extra_string.h"
 
 #define BOOT_FEL_FLAG  (0x5AA5A55A)
 

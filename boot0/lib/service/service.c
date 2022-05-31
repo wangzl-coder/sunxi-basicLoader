@@ -28,7 +28,7 @@
 ************************************************************************************************************************
 */
 #include "../lib_i.h"
-#include "string.h"
+#include "extra_string.h"
 #include "../../load_Boot1_from_nand/nand_for_boot.h"
 #include "../../load_boot1_from_sdmmc/bsp_mmc_for_boot/mmc.h"
 

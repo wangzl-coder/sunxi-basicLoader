@@ -11,7 +11,7 @@
 #define _MMC_DEF_H_
 
 #include "boot0_i.h"
-#include <string.h>
+#include "extra_string.h"
 
 #if (defined(CONFIG_ARCH_SUN8IW5P1) || defined(CONFIG_ARCH_SUN8IW6P1) || defined (CONFIG_ARCH_SUN8IW8P1))||defined (CONFIG_ARCH_SUN8IW9P1)
 #define MAX_MMC_NUM			3

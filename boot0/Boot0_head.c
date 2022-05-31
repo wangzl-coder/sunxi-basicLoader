@@ -41,7 +41,7 @@ const boot0_file_head_t  BT0_head __attribute__((__section__(".bt0_head")))= {
 #ifdef ALIGN_SIZE_8K
 									      0x2000,
 #else
-                                                                              0x8000,
+                                                                              0x6000,
 #endif
 							   		      sizeof( boot_file_head_t ),
 							   		      BOOT_PUB_HEAD_VERSION,

@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include <string.h>
+#include "extra_string.h"
 
 
 #define STAMP_VALUE         0x5F0A6C39
