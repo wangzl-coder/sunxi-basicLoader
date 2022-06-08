@@ -8,6 +8,8 @@
  */
 #include "mmc_def.h"
 #include "mmc.h"
+#include "mmc_op.h"
+
 
 static unsigned bootcard_offset;
 

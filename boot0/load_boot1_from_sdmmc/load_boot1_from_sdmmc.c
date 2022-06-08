@@ -30,8 +30,10 @@
 #include "boot0_i.h"
 #include "bsp_mmc_for_boot/bsp_sdc_for_boot.h"
 #include "load_boot1_from_sdmmc.h"
+#include "mmc_op.h"
 
-extern const boot0_file_head_t  BT0_head;
+
+
 /*******************************************************************************
 *函数名称: load_boot1_from_sdmmc
 *函数原型：int32 load_boot1_from_sdmmc( __u8 card_no )
@@ -41,8 +43,9 @@ extern const boot0_file_head_t  BT0_head;
 *          ERROR                      载入并校验失败
 *备    注:
 *******************************************************************************/
-__s32 load_boot1_from_sdmmc( char *buf)
+__s32 load_boot1_from_sdmmc(char *buf)
 {
+	extern const boot0_file_head_t  BT0_head;
     __u32  length;
     __s32  card_no, i;
 	uboot_file_head  *bfh;
@@ -62,6 +65,7 @@ __s32 load_boot1_from_sdmmc( char *buf)
 
 			goto __card_op_fail__;
 		}
+		sdcard_info->line_count[i] = 8;
 		msg("sdcard %d line count %d\n", card_no, sdcard_info->line_count[i] );
 		if(!sdcard_info->line_count[i])
 		{

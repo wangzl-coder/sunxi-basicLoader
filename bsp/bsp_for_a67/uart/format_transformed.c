@@ -126,6 +126,52 @@ void int_to_string_dec( int input , char * str)
 
 
 
+//#pragma arm section  code="int_to_string_dec"
+void long_to_string_dec(long long input , char * str)
+{
+	char stack[24];
+	char sign_flag = POSITIVE ;      // 'sign_flag indicates wheater 'input' is positive or negative, default
+	int i ;                           // value is 'POSITIVE'.
+	int j ;
+
+
+
+	if( input == 0 )
+	{
+		str[0] = '0';
+		str[1] = '\0';                   // 'str' must end with '\0'
+		return ;
+	}
+
+	if( input < 0 )                      // If 'input' is negative, 'input' is assigned to its absolute value.
+	{
+		sign_flag = NEGATIVE ;
+		input = -input ;
+	}
+
+	for( i = 0; input > 0; ++i )
+	{				      // characters in reverse order are put in 'stack' .
+		j = 0;
+		while(1)
+		{
+			if(10*j > input)
+				break;
+			j++;
+		}
+		stack[i] = input - 10*(j - 1);
+		input = j - 1;
+	}                                   // at the end of 'for' loop, 'i' is the number of characters.
+
+
+    j = 0;
+	if( sign_flag == NEGATIVE )
+		str[j++] = '-';		            // If 'input' is negative, minus sign '-' is placed in the head.
+	for( --i  ; i >= 0; --i, ++j )
+		str[j] = stack[i];
+	str[j] = '\0';				        // 'str' must end with '\0'
+}
+
+
 
 
 

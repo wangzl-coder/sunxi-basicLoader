@@ -71,6 +71,7 @@ __s32 boot_set_gpio(void  *user_gpio_list, __u32 group_count_max, __s32 set_gpio
 	    {
 	    	continue;
 	    }
+        
 	    port_num_func = (port_num >> 3);
         port_num_pull = (port_num >> 4);
 

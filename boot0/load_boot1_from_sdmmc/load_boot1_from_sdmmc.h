@@ -50,7 +50,7 @@ boot_sdcard_info_t;
 *          ERROR                      载入并校验失败
 *备    注:
 *******************************************************************************/
-extern __s32 load_boot1_from_sdmmc( char *buf);
+__s32 load_boot1_from_sdmmc( char *buf);
 
 
 

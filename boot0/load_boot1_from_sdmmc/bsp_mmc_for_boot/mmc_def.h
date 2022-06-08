@@ -20,7 +20,7 @@
 #endif
 
 #define MMC_TRANS_BY_DMA
-//#define MMC_DEBUG
+#define MMC_DEBUG
 
 #if (defined(CONFIG_ARCH_SUN7IW1P1) || defined(CONFIG_ARCH_SUN5I))
 	#define MMC_REG_FIFO_OS		(0x100)

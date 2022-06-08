@@ -58,9 +58,9 @@ void Boot0_C_part( void )
 {
 	__u32 status;
 	__s32 dram_size;
-	int	index = 0;
+	
 	int   ddr_aotu_scan = 0;
-
+	
     __u32 fel_flag;
 
 //	move_RW( );

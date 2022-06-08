@@ -31,7 +31,7 @@
 #include <stdarg.h>
 #include "format_transformed.h"
 #include "uart_hd.h"
-
+#include "extra_string.h"
 
 void UART_puts_no_newline( const char * str )
 {
@@ -74,13 +74,13 @@ void UART_puts_no_newline( const char * str )
 */
 void UART_printf2( const char * str, ...)
 {
-	char string[13];
+	char string[26];
 	char *p;
 	__s32 hex_flag ;
 	va_list argp;
 
 	va_start( argp, str );
-
+	memset(string,0x0,26);
 	while( *str )
 	{
 		if( *str == '%' )
@@ -91,6 +91,11 @@ void UART_printf2( const char * str, ...)
 			switch( *str )
 			{
 				case 'd': int_to_string_dec( va_arg( argp,  __s32 ), string );
+                          UART_puts_no_newline( p );
+						  ++str;
+						  break;
+				case 'l':
+						long_to_string_dec( va_arg( argp,  __s64 ), string );
                           UART_puts_no_newline( p );
 						  ++str;
 						  break;

@@ -245,11 +245,11 @@ struct mmc_csd
 */
 
 struct mmc_cmd {
-	unsigned cmdidx;
-	unsigned resp_type;
-	unsigned cmdarg;
-	unsigned response[4];
-	unsigned flags;
+	unsigned int cmdidx;
+	unsigned int resp_type;
+	unsigned int cmdarg;
+	unsigned int response[4];
+	unsigned int flags;
 };
 
 struct mmc_data {
@@ -257,9 +257,9 @@ struct mmc_data {
 		char *dest;
 		const char *src; /* src buffers don't get written to */
 	} b;
-	unsigned flags;
-	unsigned blocks;
-	unsigned blocksize;
+	unsigned int flags;
+	unsigned int blocks;
+	unsigned int blocksize;
 };
 
 
@@ -274,37 +274,37 @@ struct tuning_sdly{
 struct mmc {
 	char name[32];
 	void *priv;
-	unsigned voltages;
-	unsigned version;
-	unsigned has_init;
-	unsigned  control_num;
-	unsigned f_min;
-	unsigned f_max;
+	unsigned int voltages;
+	unsigned int version;
+	unsigned int has_init;
+	unsigned int control_num;
+	unsigned int f_min;
+	unsigned int f_max;
 	int high_capacity;
-	unsigned bus_width;
-	unsigned clock;
-	unsigned card_caps;
-	unsigned host_caps;
-	unsigned ocr;
-	unsigned scr[2];
-	unsigned csd[4];
-	unsigned cid[4];
+	unsigned int bus_width;
+	unsigned int clock;
+	unsigned int card_caps;
+	unsigned int host_caps;
+	unsigned int ocr;
+	unsigned int scr[2];
+	unsigned int csd[4];
+	unsigned int cid[4];
 	unsigned short rca;
 	char part_config;
 	char part_num;
-	unsigned tran_speed;
-	unsigned read_bl_len;
-	unsigned write_bl_len;
-	unsigned erase_grp_size;
+	unsigned int tran_speed;
+	unsigned int read_bl_len;
+	unsigned int write_bl_len;
+	unsigned int erase_grp_size;
 	unsigned long long capacity;
 	int (*send_cmd)(struct mmc *mmc,
 			struct mmc_cmd *cmd, struct mmc_data *data);
 	void (*set_ios)(struct mmc *mmc);
 	int (*init)(struct mmc *mmc);
 	struct tuning_sdly sdly_tuning;
-	unsigned b_max;
-    unsigned lba;        /* number of blocks */
-    unsigned blksz;      /* block size */
+	unsigned int b_max;
+    unsigned int lba;        /* number of blocks */
+    unsigned int blksz;      /* block size */
 };
 
 #define mmc_host_is_spi(mmc)	((mmc)->host_caps & MMC_MODE_SPI)

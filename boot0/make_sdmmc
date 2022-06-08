@@ -66,7 +66,8 @@ TARGET := boot0_sdcard_$(ARCH).bin
 $(TARGET):boot0_sdcard_$(ARCH)
 	$(OBJCOPY) $(OBJCOPY_FLAGS) boot0_sdcard_$(ARCH) $(TARGET)
 	$(WORKTOOLS)/mkboot0 $(TARGET) ../$(TARGET)
-	rm $(TARGET) boot0_sdcard_$(ARCH)
+	mv boot0_sdcard_$(ARCH) ../boot0_sdcard_$(ARCH)
+	rm $(TARGET)
 
 
 boot0_sdcard_$(ARCH):$(OBJS)

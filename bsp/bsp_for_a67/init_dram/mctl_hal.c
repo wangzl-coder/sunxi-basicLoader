@@ -330,8 +330,8 @@ unsigned int ccm_set_pll_ddr_clk(u32 pll_clk)
 {
 	unsigned int n, k, m = 1,rval;
 	unsigned int div;
-	unsigned int mod2, mod3;
-	unsigned int min_mod = 0;
+	//unsigned int mod2, mod3;
+	//unsigned int min_mod = 0;
 
 	div = pll_clk/24;
 	k=2;
@@ -427,13 +427,13 @@ unsigned int mctl_sys_init(__dram_para_t *para)
 		local_delay(1);
 		if((para->dram_tpr8&0x1) && (para->dram_clk<=240))
 		{
-			ret_val=ccm_set_pll_ddr1_clk(para->dram_clk<<2);
+			ret_val = ccm_set_pll_ddr1_clk(para->dram_clk<<2);
 			pll_div = 2 ;
 			dram_dbg("USE PLL BYPASS\n");
 		}
 		else
 		{
-			ret_val=ccm_set_pll_ddr1_clk(para->dram_clk<<1);
+			ret_val = ccm_set_pll_ddr1_clk(para->dram_clk<<1);
 			pll_div = 4;
 			dram_dbg("USE PLL NORMAL\n");
 		}
@@ -449,13 +449,13 @@ unsigned int mctl_sys_init(__dram_para_t *para)
 		local_delay(1);
 		if((para->dram_tpr8&0x1) && (para->dram_clk<=240))
 		{
-			ret_val=ccm_set_pll_ddr_clk(para->dram_clk<<2);
+			ret_val = ccm_set_pll_ddr_clk(para->dram_clk<<2);
 			pll_div = 2 ;
 			dram_dbg("USE PLL BYPASS\n");
 		}
 		else
 		{
-			ret_val=ccm_set_pll_ddr_clk(para->dram_clk);
+			ret_val = ccm_set_pll_ddr_clk(para->dram_clk);
 			pll_div = 2 ;
 			dram_dbg("USE PLL NORMAL\n");
 		}
@@ -567,7 +567,8 @@ unsigned int mctl_sys_init(__dram_para_t *para)
 	else
 		mctl_write_w(0x0000400f,MC_CLKEN);	//normal
 	local_delay(10);
-	return (1);
+	ret_val = (1);
+	return ret_val;
 }
 //***********************************************************************************************
 //	void mctl_com_init(__dram_para_t *para)

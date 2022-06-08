@@ -32,10 +32,10 @@
 #define __debug_UART_h
 
 
-extern void   UART_puts( const char * string );
-extern void   UART_printf2( const char * str, ... );
+void   UART_puts( const char * string );
+void   UART_printf2( const char * str, ... );
 
-extern void   UART_open( int uart_port, void  *uart_ctrl, unsigned int apb_freq );
+void   UART_open( int uart_port, void  *uart_ctrl, unsigned int apb_freq );
 
 #endif     //  ifndef __debug_UART_h
 

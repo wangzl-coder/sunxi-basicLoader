@@ -182,7 +182,7 @@ static int mmc_clk_io_onoff(int sdc_no, int onoff)
 {
 	unsigned int rval;
 	struct sunxi_mmc_host* mmchost = &mmc_host[sdc_no];
-
+	extern const boot0_file_head_t BT0_head;
 	if(sdc_no == 0)
 	{
 #if defined CONFIG_ARCH_SUN9IW1P1

@@ -14,6 +14,7 @@
 #define CONFIG_SYS_MMC_MAX_BLK_COUNT 65535
 #endif
 
+
 static struct mmc* mmc_devices[MAX_MMC_NUM];
 
 int mmc_send_cmd(struct mmc *mmc, struct mmc_cmd *cmd, struct mmc_data *data)
@@ -854,8 +855,8 @@ int mmc_startup(struct mmc *mmc)
 	struct mmc_cmd cmd;
 	char ext_csd[512];
 	int timeout = 1000;
-	int i = 0;
-	
+	//int i = 0;
+
 	/* Put the Card in Identify Mode */
 	cmd.cmdidx = mmc_host_is_spi(mmc) ? MMC_CMD_SEND_CID :
 		MMC_CMD_ALL_SEND_CID; /* cmd not supported in spi */
@@ -954,15 +955,14 @@ int mmc_startup(struct mmc *mmc)
 		mmc->write_bl_len = 1 << ((cmd.response[3] >> 22) & 0xf);
 
 	if (mmc->high_capacity) {
-		csize = (mmc->csd[1] & 0x3f) << 16
-			| (mmc->csd[2] & 0xffff0000) >> 16;
+		csize = ((u64) (mmc->csd[1] & 0x3f)) << 16
+			| ((u64)(mmc->csd[2] & 0xffff0000)) >> 16;
 		cmult = 8;
 	} else {
-		csize = (mmc->csd[1] & 0x3ff) << 2
-			| (mmc->csd[2] & 0xc0000000) >> 30;
-		cmult = (mmc->csd[2] & 0x00038000) >> 15;
+		csize = ((u64)(mmc->csd[1] & 0x3ff)) << 2
+			| ((u64)(mmc->csd[2] & 0xc0000000)) >> 30;
+		cmult = ((u64)(mmc->csd[2] & 0x00038000)) >> 15;
 	}
-
 	mmc->capacity = (csize + 1) << (cmult + 2);
 	mmc->capacity *= mmc->read_bl_len;
 
@@ -1147,12 +1147,13 @@ int mmc_startup(struct mmc *mmc)
 
 	/* fill in device description */
 	mmc->blksz = mmc->read_bl_len;
-	while((mmc->read_bl_len * i> mmc->capacity))
+	/*
+	while((mmc->read_bl_len * i < mmc->capacity))
 	{
 		i++;
-	}
-	mmc->lba = i;
-
+	}*/
+	mmc->lba = mmc->capacity/512;
+	mmcinfo("mmc->lba == %d \r\n",mmc->lba);
 	if(!IS_SD(mmc)){
 		switch(mmc->version)
 		{

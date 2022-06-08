@@ -39,7 +39,7 @@
 
 
 
-
+extern void long_to_string_dec(long long input , char *str);
 //This function is to convert an 'int' data 'input' to a string in decimalism,
 //and the string converted is in 'str'.
 extern void int_to_string_dec( int input, char * str );

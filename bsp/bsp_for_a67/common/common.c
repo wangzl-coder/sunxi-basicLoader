@@ -19,6 +19,7 @@
  */
 #include "types.h"
 #include "arch.h"
+#include "debug_uart.h"
 
 /*******************************************************************************
 *º¯ÊýÃû³Æ: set_pll
@@ -257,9 +258,10 @@ static void disbale_cpus(void)
 *
 ************************************************************************************************************
 */
+#if 0
 static void config_pll1_para(void)
 {
-#if 0
+
 //	volatile unsigned int value;
 //
 //	//by sunny at 2013-1-20 17:53:21.
@@ -274,8 +276,9 @@ static void config_pll1_para(void)
 //	value &= ~(0xf << 24);
 //	value |= (0xf << 24);
 //	*(volatile unsigned int *)(0x1c20220) = value;
-#endif
+
 }
+#endif
 /*
 ************************************************************************************************************
 *
@@ -294,7 +297,7 @@ static void config_pll1_para(void)
 */
 static void sram_area_init(void)
 {
-	volatile unsigned int reg_val;
+	//volatile unsigned int reg_val;
 	uint version;
 
 	*(volatile unsigned int *)(0x01f01400 + 0x0) = 0x00010000;
